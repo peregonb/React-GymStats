@@ -1,0 +1,69 @@
+#root {
+  font-family: $font;
+}
+
+.header {
+  padding: 5px 15px;
+  width: 100%;
+
+  .ant-page-header-heading-extra {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 100vh;
+}
+
+.content {
+  padding: 0 15px;
+  flex-grow: 1;
+  width: 100%;
+  overflow: scroll;
+
+  &-list {
+    padding: 15px 0;
+
+    .ant-card {
+
+      &-body {
+        .ant-table-wrapper {
+          border: 1px solid #f0f0f0;
+        }
+      }
+
+      &-head-title {
+        font-size: 16px;
+      }
+
+      .ant-table .ant-table-title, .ant-table.ant-table-small .ant-table-footer, .ant-table.ant-table-small .ant-table-thead > tr > th, .ant-table.ant-table-small .ant-table-tbody > tr > td, .ant-table.ant-table-small tfoot > tr > th, .ant-table.ant-table-small tfoot > tr > td {
+        padding: 5px 3px;
+      }
+
+      .ant-table {
+        tr {
+          td, th {
+            &:first-child {
+              width: 33%;
+              padding-right: 5px !important;
+            }
+          }
+        }
+      }
+
+      tbody {
+        font-size: 12px;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
