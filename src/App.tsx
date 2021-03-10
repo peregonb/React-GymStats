@@ -1,6 +1,6 @@
 import React from 'react';
 import {Layout} from "antd";
-import "./assets/styles/App.scss";
+import "./assets/styles/App.less";
 import Header from "./components/Header";
 import TrainingsList from "./components/TrainingsList";
 
