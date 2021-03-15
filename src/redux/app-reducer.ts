@@ -1,7 +1,7 @@
 const SET_DARK_THEME = 'SET_DARK_THEME';
 
 let initialState = {
-    darkTheme: false
+    darkTheme: true
 };
 
 export interface setDarkThemeInterface {

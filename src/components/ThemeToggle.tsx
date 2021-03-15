@@ -1,9 +1,9 @@
-import React from "react";
-import {Switch} from "antd";
-import useTheme, {THEME} from "../hooks/useTheme";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {setDarkTheme} from "../redux/app-reducer";
-import { stateInterface } from "../redux/types";
+import {stateInterface} from "../redux/types";
+// import {useThemeSwitcher} from "react-css-theme-switcher";
+import {Switch} from "antd";
 
 interface propsInterface {
     darkTheme: boolean,
@@ -11,16 +11,18 @@ interface propsInterface {
 }
 
 const ThemeToggle: React.FC<propsInterface> = ({setDarkTheme, darkTheme}) => {
-    const {theme, setTheme} = useTheme();
-    setDarkTheme(theme === THEME.DARK);
-    const target = darkTheme ? THEME.LIGHT : THEME.DARK;
+    // @ts-ignore
+    const {switcher, status, themes} = useThemeSwitcher();
+    const toggleTheme = (isChecked: any) => {
+        setDarkTheme(isChecked);
+        switcher({theme: isChecked ? themes.dark : themes.light});
+    };
 
     return (
-        <Switch
-            checked={theme === THEME.DARK}
+        <Switch loading={status === "loading"}
             checkedChildren="🌙"
             unCheckedChildren="☀️"
-            onChange={() => setTheme(target)}
+            onChange={e => toggleTheme(e)}
         />
     );
 };
