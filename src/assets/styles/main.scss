@@ -1,5 +1,6 @@
 #root {
   font-family: $font;
+  user-select: none !important;
 }
 
 .header {
@@ -34,7 +35,11 @@
 
       &-body {
         .ant-table-wrapper {
-          //border: 1px solid @border-color-base;
+          border: 1px solid rgba(#fff, .1);
+
+          .ant-table-tbody tr:last-child td{
+            border-bottom: none;
+          }
         }
       }
 
@@ -43,15 +48,31 @@
       }
 
       .ant-table .ant-table-title, .ant-table.ant-table-small .ant-table-footer, .ant-table.ant-table-small .ant-table-thead > tr > th, .ant-table.ant-table-small .ant-table-tbody > tr > td, .ant-table.ant-table-small tfoot > tr > th, .ant-table.ant-table-small tfoot > tr > td {
-        padding: 5px 3px;
+        padding: 5px;
       }
 
       .ant-table {
+
+        &-content{
+          overflow-x: auto;
+        }
         tr {
           td, th {
             &:first-child {
-              width: 33%;
               padding-right: 5px !important;
+              padding-left: 10px !important;
+              width: 110px;
+              min-width: 110px;
+            }
+            &:not(:first-child){
+              width: 70px;
+              min-width: 70px;
+            }
+            &:not(:last-child){
+              border-right: 1px solid rgba(#fff, .1);
+            }
+            &:last-child{
+              padding-right: 10px !important;
             }
           }
         }
@@ -64,6 +85,10 @@
       &:not(:last-child) {
         margin-bottom: 10px;
       }
+    }
+
+    &-tags{
+      margin-top: 10px;
     }
   }
 }

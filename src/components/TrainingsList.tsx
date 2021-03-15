@@ -1,6 +1,6 @@
-import {Card, Table} from "antd";
+import {Card, Table, Tag} from "antd";
 import React from "react";
-import {EditOutlined, EllipsisOutlined, SettingOutlined} from '@ant-design/icons';
+import {EditOutlined} from '@ant-design/icons';
 
 const TrainingsList = () => {
     const columns = [
@@ -9,19 +9,19 @@ const TrainingsList = () => {
             dataIndex: 'name',
         },
         {
-            title: 'П1',
+            title: 'Атака 1',
             dataIndex: 'age',
         },
         {
-            title: 'П2',
+            title: 'Атака 2',
             dataIndex: 'address',
         },
         {
-            title: 'П3',
+            title: 'Атака 3',
             dataIndex: 'q1',
         },
         {
-            title: 'П4',
+            title: 'Атака 4',
             dataIndex: 'q2',
         },
     ];
@@ -37,7 +37,7 @@ const TrainingsList = () => {
         {
             key: '2',
             name: 'Жим в наклоне',
-                  age: '40кг х5',
+            age: '40кг х5',
             address: '50кг х5',
             q1: '60кг х5',
             q2: '65кг х5',
@@ -45,7 +45,7 @@ const TrainingsList = () => {
         {
             key: '3',
             name: 'Разведение гантель',
-                age: '40кг х5',
+            age: '40кг х5',
             address: '50кг х5',
             q1: '60кг х5',
             q2: '65кг х5',
@@ -61,7 +61,7 @@ const TrainingsList = () => {
         {
             key: '3',
             name: 'Молотки',
-              age: '40кг х5',
+            age: '40кг х5',
             address: '50кг х5',
             q1: '60кг х5',
             q2: '65кг х5',
@@ -69,11 +69,22 @@ const TrainingsList = () => {
     ];
     return (
         <div className={'content-list'}>
-            <Card size={'small'} title="Тренировка 8.03.2021 16:45" extra={<a href="#"><EditOutlined key="edit"/></a>}>
+            <Card key={1} size={'small'} title="Тренировка 8.03.2021 16:45" extra={<a href="#"><EditOutlined key="edit"/></a>}>
                 <Table pagination={false} columns={columns} dataSource={data} size="small"/>
+                <div className={'content-list-tags'}>
+                    <Tag color="orange">orange</Tag>
+                    <Tag color="gold">gold</Tag>
+                    <Tag color="lime">lime</Tag>
+                    <Tag color="green">green</Tag>
+                </div>
             </Card>
-            <Card size={'small'} title="Тренировка 13.03.2021 12:30" extra={<a href="#"><EditOutlined key="edit"/></a>}>
+            <Card key={2} size={'small'} title="Тренировка 13.03.2021 12:30" extra={<a href="#"><EditOutlined key="edit"/></a>}>
                 <Table pagination={false} columns={columns} dataSource={data} size="small"/>
+                <div className={'content-list-tags'}>
+                    <Tag color="magenta">magenta</Tag>
+                    <Tag color="red">red</Tag>
+                    <Tag color="volcano">volcano</Tag>
+                </div>
             </Card>
         </div>
     )
