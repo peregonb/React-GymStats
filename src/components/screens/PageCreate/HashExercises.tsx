@@ -5,7 +5,7 @@ import {stateInterface} from "@redux/types";
 import {connect} from "react-redux";
 
 const {Option} = Select;
-// const tags: string[] = ['Грудь', 'Плечи', 'Бицепс', 'Трицепс', 'Спина', 'Пресс', 'Ноги'];
+
 interface I_tag {
     type: string,
     color: string
@@ -17,7 +17,8 @@ const tags: I_tag[] = [
     {'type': 'Трицепс', 'color': 'green'},
     {'type': 'Спина', 'color': 'cyan'},
     {'type': 'Пресс', 'color': 'geekblue'},
-    {'type': 'Ноги', 'color': 'purple'}
+    {'type': 'Ноги', 'color': 'purple'},
+    {'type': 'Ягодицы', 'color': 'magenta'}
 ];
 const columns = [
     {
@@ -32,7 +33,7 @@ const columns = [
     }
 ];
 
-const tagsColors: string[] = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple'];
+// const tagsColors: string[] = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple'];
 
 type propsType = {
     exercises: exercises[],
