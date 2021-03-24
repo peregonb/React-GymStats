@@ -2,7 +2,7 @@ import {Card, Table, Tag} from "antd";
 import React from "react";
 import {EditOutlined} from '@ant-design/icons';
 
-const TrainingsList = () => {
+const PageList = () => {
     const columns = [
         {
             title: 'Упражнение',
@@ -101,4 +101,4 @@ const TrainingsList = () => {
     )
 }
 
-export default TrainingsList;
+export default PageList;

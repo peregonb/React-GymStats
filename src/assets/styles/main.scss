@@ -1,10 +1,73 @@
+@mixin antd-table {
+  .ant-table {
+    font-size: 12px;
+
+    &-wrapper {
+      border: 1px solid rgba(#fff, .1);
+
+      .ant-table-tbody tr:last-child td {
+        border-bottom: none;
+      }
+    }
+
+    &-title,
+    &-footer,
+    &-thead > tr > th,
+    &-tbody > tr > td,
+    tfoot > tr > th,
+    tfoot > tr > td {
+      padding: 5px;
+    }
+
+    &-thead {
+      .ant-table-cell {
+        font-weight: 600;
+      }
+    }
+
+    &-content {
+      overflow-x: auto;
+    }
+
+    tr {
+      td, th {
+        &:first-child {
+          padding-right: 5px !important;
+          padding-left: 10px !important;
+          width: 110px;
+          min-width: 110px;
+        }
+
+        &:not(:first-child) {
+          width: 70px;
+          min-width: 70px;
+        }
+
+        &:not(:last-child) {
+          border-right: 1px solid rgba(#fff, .1);
+        }
+
+        &:last-child {
+          padding-right: 10px !important;
+        }
+      }
+    }
+
+  }
+}
+
 #root {
   font-family: $font;
   user-select: none !important;
+  min-width: 320px;
 }
 
 a {
   color: #1cab9c;
+
+  &:hover {
+    color: #1cab9c;
+  }
 }
 
 .header {
@@ -28,15 +91,16 @@ a {
 }
 
 .content {
-  padding: 0 15px;
   flex-grow: 1;
   width: 100%;
   overflow-y: auto;
 
   &-list {
-    padding: 15px 0;
+    padding: 15px;
 
     .ant-card {
+
+      @include antd-table;
 
       &-body {
         .ant-table-wrapper {
@@ -50,41 +114,6 @@ a {
 
       &-head-title {
         font-size: 16px;
-      }
-
-      .ant-table .ant-table-title, .ant-table.ant-table-small .ant-table-footer, .ant-table.ant-table-small .ant-table-thead > tr > th, .ant-table.ant-table-small .ant-table-tbody > tr > td, .ant-table.ant-table-small tfoot > tr > th, .ant-table.ant-table-small tfoot > tr > td {
-        padding: 5px;
-      }
-
-      .ant-table {
-
-        &-content {
-          overflow-x: auto;
-        }
-
-        tr {
-          td, th {
-            &:first-child {
-              padding-right: 5px !important;
-              padding-left: 10px !important;
-              width: 110px;
-              min-width: 110px;
-            }
-
-            &:not(:first-child) {
-              width: 70px;
-              min-width: 70px;
-            }
-
-            &:not(:last-child) {
-              border-right: 1px solid rgba(#fff, .1);
-            }
-
-            &:last-child {
-              padding-right: 10px !important;
-            }
-          }
-        }
       }
 
       tbody {
@@ -104,6 +133,61 @@ a {
       margin-bottom: 10px;
     }
   }
+
+  &-create {
+
+  }
+}
+
+.tabs {
+  background-color: #141414;
+  width: 100%;
+  min-width: 320px;
+  height: 35px;
+  padding: 0 10px;
+  box-shadow: 0 0 15px 5px #141414;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+
+  &-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 5px;
+    position: relative;
+    color: rgba(#fff, .85);
+    transition: background-color $t;
+
+    &:hover {
+      color: rgba(#fff, .85);
+    }
+
+    &:not(:last-child) {
+      margin-right: 15px;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      background-color: transparent;
+      transition: background-color $t;
+    }
+
+    &.active {
+      background-color: rgba(#fff, .075);
+      transition: background-color $t;
+
+      &:before {
+        background-color: #1cab9c;
+        transition: background-color $t;
+      }
+    }
+  }
 }
 
 .footer {
@@ -115,6 +199,7 @@ a {
   justify-content: space-between;
   background-color: #141414;
   width: 100%;
+  min-width: 320px;
   height: 50px;
   padding: 0 15px;
   box-shadow: 0 0 15px 5px #141414;
@@ -127,7 +212,7 @@ a {
     justify-content: center;
     align-items: center;
     height: 100%;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(#fff, .85);
     text-decoration: none;
     transition: color $t;
 
@@ -135,7 +220,7 @@ a {
       font-size: 20px;
       margin-bottom: 3px;
       padding-top: 3px;
-      color: rgba(255, 255, 255, 0.85);
+      color: rgba(#fff, .85);
       transition: color $t;
     }
 
@@ -147,6 +232,74 @@ a {
         color: #1cab9c;
         transition: color $t;
       }
+    }
+
+    &:not(.active) {
+      &:hover {
+        color: rgba(#fff, .85);
+      }
+    }
+  }
+}
+
+.exercises {
+  padding: 15px;
+  //margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 85px);
+  overflow: hidden;
+
+  &-header {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  &-add {
+    //margin-top: 15px;
+  }
+
+  &-form {
+    margin-top: 10px;
+  }
+
+  &-fields {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+    .ant-form-item {
+      margin-bottom: 0;
+
+      &:nth-child(1) {
+        margin-bottom: 10px;
+      }
+
+      &:nth-child(2) {
+        margin-bottom: 10px;
+      }
+    }
+
+    .ant-tag {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  &-list {
+
+    @include antd-table;
+
+    .ant-tag:not(:last-child){
+      margin-bottom: 5px;
+    }
+
+    &-table {
+      margin: 10px 0;
+      max-height: calc(100vh - 335px);
+      overflow: auto;
+      position: relative;
     }
   }
 }

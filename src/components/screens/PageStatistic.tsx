@@ -1,6 +1,6 @@
 import React from "react";
 
-const TrainingsStatistics: React.FC = () => {
+const PageStatistics: React.FC = () => {
     return (
         <div>
             Статистика
@@ -8,4 +8,4 @@ const TrainingsStatistics: React.FC = () => {
     )
 }
 
-export default TrainingsStatistics;
+export default PageStatistics;
