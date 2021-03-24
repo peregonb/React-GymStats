@@ -291,15 +291,21 @@ a {
 
     @include antd-table;
 
-    .ant-tag:not(:last-child){
-      margin-bottom: 5px;
-    }
-
     &-table {
       margin: 10px 0;
       max-height: calc(100vh - 335px);
       overflow: auto;
       position: relative;
+    }
+
+    &-tags {
+      display: flex;
+      flex-flow: row wrap;
+      margin: -2.5px -4px;
+
+      .ant-tag {
+        margin: 2.5px 4px;
+      }
     }
   }
 }

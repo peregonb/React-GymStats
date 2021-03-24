@@ -82,7 +82,7 @@ const HashExercisesContainer: React.FC<propsType> = ({exercises, setExercises}) 
             <div className={'exercises-list'}>
                 <div className={'exercises-header'}>Список упражнений</div>
                 <Table sticky={true} className={'exercises-list-table'} dataSource={exercises.map(el => {
-                    return {...el, 'tags': <>{el.tags.map(tag => <Tag color={tags.find(item => item.type === tag)?.color}>{tag}</Tag>)}</>}
+                    return {...el, 'tags': <div className={'exercises-list-tags'}>{el.tags.map(tag => <Tag color={tags.find(item => item.type === tag)?.color}>{tag}</Tag>)}</div>}
                 })} columns={columns} pagination={false} size="small"/>
             </div>
         </div>
