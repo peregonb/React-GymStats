@@ -1,28 +1,30 @@
 import {combineReducers, createStore} from "redux";
 import appReducer from "./app-reducer";
-import {stateInterface} from "@redux/types";
+import {I_state} from "@redux/types";
+import exercisesReducer from "./exercises-reducer";
 
 let reducers = combineReducers({
-    app: appReducer
+    app: appReducer,
+    exercises: exercisesReducer
 });
 
-const saveToLocalStorage = (state: stateInterface) => {
-  try {
-    const serialisedState = JSON.stringify(state);
-    localStorage.setItem("persistentState", serialisedState);
-  } catch (e) {
-    console.warn(e);
-  }
+const saveToLocalStorage = (state: I_state) => {
+    try {
+        const serialisedState = JSON.stringify(state);
+        localStorage.setItem("persistentState", serialisedState);
+    } catch (e) {
+        console.warn(e);
+    }
 };
 const loadFromLocalStorage = () => {
-  try {
-    const serialisedState = localStorage.getItem("persistentState");
-    if (serialisedState === null) return undefined;
-    return JSON.parse(serialisedState);
-  } catch (e) {
-    console.warn(e);
-    return undefined;
-  }
+    try {
+        const serialisedState = localStorage.getItem("persistentState");
+        if (serialisedState === null) return undefined;
+        return JSON.parse(serialisedState);
+    } catch (e) {
+        console.warn(e);
+        return undefined;
+    }
 };
 
 

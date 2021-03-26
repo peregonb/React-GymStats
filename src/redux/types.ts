@@ -1,10 +1,14 @@
-import {exercises} from "./app-reducer";
+import {exercises} from "./exercises-reducer";
 
-export interface appReducerInterface {
+export interface I_appReducer {
     darkTheme: boolean,
-    exercises: exercises[]
 }
 
-export interface stateInterface {
-    app: appReducerInterface
+export interface I_exercisesReducer {
+    exercisesList: exercises[]
+}
+
+export interface I_state {
+    app: I_appReducer,
+    exercises: I_exercisesReducer
 }

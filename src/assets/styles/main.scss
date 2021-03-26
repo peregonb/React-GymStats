@@ -253,6 +253,13 @@ a {
   &-header {
     font-size: 16px;
     font-weight: 600;
+    margin-right: 8px;
+  }
+
+  &-wrapper{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
   }
 
   &-add {
