@@ -1,11 +1,11 @@
-import {exercises} from "./exercises-reducer";
+import {exercise} from "./exercises-reducer";
 
 export interface I_appReducer {
     darkTheme: boolean,
 }
 
 export interface I_exercisesReducer {
-    exercisesList: exercises[]
+    exercisesList: exercise[]
 }
 
 export interface I_state {

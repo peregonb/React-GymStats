@@ -264,6 +264,10 @@ a {
 
   &-add {
     //margin-top: 15px;
+
+    .ant-btn:not(:last-child){
+      margin-right: 10px;
+    }
   }
 
   &-form {

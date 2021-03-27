@@ -1,6 +1,6 @@
 import {Form, Input, Button, Select, Table, Tag, Tooltip} from 'antd';
-import React from 'react';
-import {exercises, setExercises} from "@redux/exercises-reducer";
+import React, {useEffect, useState} from 'react';
+import {changeExercise, exercise, setExercise} from "@redux/exercises-reducer";
 import {I_state} from "@redux/types";
 import {connect} from "react-redux";
 import {InfoCircleOutlined} from '@ant-design/icons';
@@ -36,55 +36,84 @@ const columns = [
 ];
 
 type propsType = {
-    exercisesList: exercises[],
-    setExercises: (exercises: exercises[]) => void;
+    exercisesList: exercise[],
+    setExercise: (name: string, tags: string[]) => void;
+    changeExercise: (id: number, name: string, tags: string[]) => void
 }
 
-const HashExercisesContainer: React.FC<propsType> = ({exercisesList, setExercises}) => {
-    const [form] = Form.useForm();
+type EditExercisePropsType = {
+    element?: exercise
+}
 
-    const onFinish = (values: exercises[]) => {
-        setExercises({...values, ...{'key': Date.now()}});
+const HashExercisesContainer: React.FC<propsType> = ({exercisesList, setExercise, changeExercise}) => {
+    const [form] = Form.useForm();
+    const [elementToEdit, setElementToEdit] = useState<exercise | undefined>(undefined);
+
+    const onFinish = ({name, tags}: { name: string; tags: string[] }) => {
+        if (!elementToEdit) {
+            setExercise(name, tags);
+        } else {
+            changeExercise(elementToEdit.id, name, tags)
+        }
+        setElementToEdit(undefined);
         form.resetFields();
     };
 
+    useEffect(() => {
+        console.log(elementToEdit, form)
+        form.resetFields();
+    }, [elementToEdit])
+
+    const EditExercise: React.FC<EditExercisePropsType> = ({element}) => {
+        console.log(element?.tags)
+        return <div className={'exercises-add'}>
+            <div className={'exercises-wrapper'}>
+                <div
+                    className={'exercises-header'}>{elementToEdit ? `Изменить упражнение: "${element?.name}"` : 'Добавить упражение'}</div>
+            </div>
+            <Form form={form} className={'exercises-form'} name={'dynamic_form_nest_item'} onFinish={onFinish}
+                  initialValues={{
+                      'name': element?.name,
+                      'tags': element?.tags
+                  }}
+                  autoComplete="off">
+                <div className={'exercises-fields'}>
+                    <Form.Item
+                        name={'name'}
+                        fieldKey={'name'}
+                        rules={[{required: true, message: 'Это обязательное поле'}]}>
+                        <Input placeholder="Название упражнения"/>
+                    </Form.Item>
+                    <Form.Item
+                        name={'tags'}
+                        fieldKey={'tags'}
+                        rules={[{required: true, message: 'И это тоже'}]}>
+                        <Select
+                            mode="multiple"
+                            allowClear
+                            style={{width: '100%'}}
+                            placeholder="Выберите группу мышц">
+                            {tags.map((el: I_tag, i: number) => <Option key={i} value={el.type}><Tag
+                                color={el.color}>{el.type}</Tag></Option>)}
+                        </Select>
+                    </Form.Item>
+                </div>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                        {element ? 'Изменить' : 'Внести'}
+                    </Button>
+                    {element && <Button type="primary" onClick={() => {
+                        setElementToEdit(undefined);
+                        form.resetFields();
+                    }} danger>Отменить</Button>}
+                </Form.Item>
+            </Form>
+        </div>
+    }
+
     return (
         <div className={'exercises'}>
-            <div className={'exercises-add'}>
-                <div className={'exercises-wrapper'}>
-                    <div className={'exercises-header'}>Добавить упражение</div>
-                    {/*<InfoCircleOutlined/>*/}
-                </div>
-                <Form form={form} className={'exercises-form'} name="dynamic_form_nest_item" onFinish={onFinish}
-                      autoComplete="off">
-                    <div className={'exercises-fields'}>
-                        <Form.Item
-                            name={'name'}
-                            fieldKey={'name'}
-                            rules={[{required: true, message: 'Это обязательное поле'}]}>
-                            <Input placeholder="Название упражнения"/>
-                        </Form.Item>
-                        <Form.Item
-                            name={'tags'}
-                            fieldKey={'tags'}
-                            rules={[{required: true, message: 'И это тоже'}]}>
-                            <Select
-                                mode="multiple"
-                                allowClear
-                                style={{width: '100%'}}
-                                placeholder="Выберите группу мышц">
-                                {tags.map((el: I_tag, i: number) => <Option key={i} value={el.type}><Tag
-                                    color={el.color}>{el.type}</Tag></Option>)}
-                            </Select>
-                        </Form.Item>
-                    </div>
-                    <Form.Item>
-                        <Button type="primary" htmlType="submit">
-                            Внести
-                        </Button>
-                    </Form.Item>
-                </Form>
-            </div>
+            <EditExercise element={elementToEdit}/>
             <div className={'exercises-list'}>
                 <div className={'exercises-wrapper'}>
                     <div className={'exercises-header'}>Список упражнений</div>
@@ -92,12 +121,12 @@ const HashExercisesContainer: React.FC<propsType> = ({exercisesList, setExercise
                         <InfoCircleOutlined/>
                     </Tooltip>
                 </div>
-                <Table onRow={(record, rowIndex) => ({
+                <Table onRow={record => ({
                     onClick: () => {
-                        console.table({record, rowIndex})
+                        setElementToEdit(exercisesList.filter(el => el.id === record.id)[0])
                     }
                 })}
-                    sticky={true} className={'exercises-list-table'} dataSource={exercisesList.map(el => {
+                       sticky={true} className={'exercises-list-table'} dataSource={exercisesList.map(el => {
                     return {
                         ...el,
                         'tags': <div className={'exercises-list-tags'}>
@@ -117,4 +146,4 @@ let mapStateToProps = (state: I_state) => {
     }
 };
 
-export const HashExercises = connect(mapStateToProps, {setExercises})(HashExercisesContainer);
+export const HashExercises = connect(mapStateToProps, {setExercise, changeExercise})(HashExercisesContainer);
