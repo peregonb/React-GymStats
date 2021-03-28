@@ -32,7 +32,7 @@ interface I_changeExercise {
 
 interface I_deleteExercise {
     type: typeof DELETE_EXERCISE
-    exercisesList: exercise[]
+    id: number
 }
 
 type actionType = I_setExercise | I_changeExercise | I_deleteExercise;
@@ -63,6 +63,12 @@ const exercisesReducer = (state = initialState, action: actionType) => {
                 } : el)
             };
 
+        case DELETE_EXERCISE:
+            return {
+                ...state,
+                exercisesList: state.exercisesList.filter(el => el.id !== action.id)
+            };
+
         default:
             return state
     }
@@ -79,6 +85,13 @@ export const changeExercise = (id: number, name: string, tags: string[]): I_chan
     return {
         type: CHANGE_EXERCISE,
         id, name, tags
+    }
+};
+
+export const deleteExercise = (id: number): I_deleteExercise => {
+    return {
+        type: DELETE_EXERCISE,
+        id
     }
 };
 

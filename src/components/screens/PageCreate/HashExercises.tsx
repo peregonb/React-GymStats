@@ -1,10 +1,11 @@
-import {Form, Input, Button, Select, Table, Tag, Tooltip} from 'antd';
 import React, {useEffect, useState} from 'react';
-import {changeExercise, exercise, setExercise} from "@redux/exercises-reducer";
+import {Form, Input, Button, Select, Table, Tag, Tooltip, Modal} from 'antd';
+import {InfoCircleOutlined, DeleteOutlined} from '@ant-design/icons';
+import {changeExercise, exercise, setExercise, deleteExercise} from "@redux/exercises-reducer";
 import {I_state} from "@redux/types";
 import {connect} from "react-redux";
-import {InfoCircleOutlined} from '@ant-design/icons';
 
+const {confirm} = Modal;
 const {Option} = Select;
 
 interface I_tag {
@@ -38,14 +39,15 @@ const columns = [
 type propsType = {
     exercisesList: exercise[],
     setExercise: (name: string, tags: string[]) => void;
-    changeExercise: (id: number, name: string, tags: string[]) => void
+    changeExercise: (id: number, name: string, tags: string[]) => void;
+    deleteExercise: (id: number) => void
 }
 
 type EditExercisePropsType = {
     element?: exercise
 }
 
-const HashExercisesContainer: React.FC<propsType> = ({exercisesList, setExercise, changeExercise}) => {
+const HashExercisesContainer: React.FC<propsType> = ({exercisesList, setExercise, changeExercise, deleteExercise}) => {
     const [form] = Form.useForm();
     const [elementToEdit, setElementToEdit] = useState<exercise | undefined>(undefined);
 
@@ -59,17 +61,31 @@ const HashExercisesContainer: React.FC<propsType> = ({exercisesList, setExercise
         form.resetFields();
     };
 
+    const showDeleteConfirm = () => {
+        confirm({
+            title: 'Удалить текущее упражнение?',
+            icon: false,
+            content: 'Восстановить будет невозможно',
+            okText: 'Да',
+            okType: 'primary',
+            cancelText: 'Нет',
+            onOk() {
+                elementToEdit && deleteExercise(elementToEdit.id);
+                setElementToEdit(undefined);
+            }
+        });
+    };
+
     useEffect(() => {
-        console.log(elementToEdit, form)
         form.resetFields();
     }, [elementToEdit])
 
     const EditExercise: React.FC<EditExercisePropsType> = ({element}) => {
-        console.log(element?.tags)
         return <div className={'exercises-add'}>
             <div className={'exercises-wrapper'}>
-                <div
-                    className={'exercises-header'}>{elementToEdit ? `Изменить упражнение: "${element?.name}"` : 'Добавить упражение'}</div>
+                <div className={'exercises-header'}>
+                    {elementToEdit ? `Изменить упражнение: "${element?.name}"` : 'Добавить упражение'}
+                </div>
             </div>
             <Form form={form} className={'exercises-form'} name={'dynamic_form_nest_item'} onFinish={onFinish}
                   initialValues={{
@@ -98,14 +114,17 @@ const HashExercisesContainer: React.FC<propsType> = ({exercisesList, setExercise
                         </Select>
                     </Form.Item>
                 </div>
-                <Form.Item>
+                <Form.Item className={'exercises-buttons'}>
                     <Button type="primary" htmlType="submit">
                         {element ? 'Изменить' : 'Внести'}
                     </Button>
-                    {element && <Button type="primary" onClick={() => {
-                        setElementToEdit(undefined);
-                        form.resetFields();
-                    }} danger>Отменить</Button>}
+                    {element && <>
+                        <Button type="primary" onClick={() => {
+                            setElementToEdit(undefined);
+                            form.resetFields();
+                        }} danger>Отменить</Button>
+                        <DeleteOutlined onClick={showDeleteConfirm} className={'exercises-buttons-delete'}/>
+                    </>}
                 </Form.Item>
             </Form>
         </div>
@@ -146,4 +165,4 @@ let mapStateToProps = (state: I_state) => {
     }
 };
 
-export const HashExercises = connect(mapStateToProps, {setExercise, changeExercise})(HashExercisesContainer);
+export const HashExercises = connect(mapStateToProps, {setExercise, changeExercise, deleteExercise})(HashExercisesContainer);

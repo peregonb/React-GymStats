@@ -256,7 +256,7 @@ a {
     margin-right: 8px;
   }
 
-  &-wrapper{
+  &-wrapper {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -265,8 +265,23 @@ a {
   &-add {
     //margin-top: 15px;
 
-    .ant-btn:not(:last-child){
+    .ant-btn:not(:last-of-type) {
       margin-right: 10px;
+    }
+  }
+
+  &-buttons {
+    .ant-form-item-control-input-content {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    &-delete {
+      font-size: 16px;
+      color: #ab1c2b;
+      padding: 8px;
+      margin-left: 5px;
     }
   }
 
@@ -316,6 +331,42 @@ a {
 
       .ant-tag {
         margin: 2.5px 4px;
+      }
+    }
+  }
+}
+
+
+.ant-modal {
+  max-width: 75vw;
+
+  &-confirm {
+    .ant-modal-body {
+      padding: 15px;
+
+      .ant-modal-confirm-title {
+        font-size: 14px;
+      }
+
+      .ant-modal-confirm-content {
+        font-size: 12px;
+        margin-top: 5px;
+      }
+
+      .ant-modal-confirm-btns {
+        .ant-btn {
+          height: 30px;
+          padding: 0 15px;
+
+          &-primary {
+            background: #ab1c2b;
+            border-color: #ab1c2b;
+          }
+
+          span {
+            font-size: 12px;
+          }
+        }
       }
     }
   }
