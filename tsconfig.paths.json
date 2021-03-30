@@ -3,6 +3,9 @@
     "paths": {
       "@redux/*": [
         "./src/redux/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
       ]
     }
   }

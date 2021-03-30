@@ -98,6 +98,14 @@ a {
   &-list {
     padding: 15px;
 
+    &-wrapper{
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
     .ant-card {
 
       @include antd-table;
@@ -243,12 +251,6 @@ a {
 }
 
 .exercises {
-  padding: 15px;
-  //margin-bottom: 50px;
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 85px);
-  overflow: hidden;
 
   &-header {
     font-size: 16px;
@@ -370,4 +372,18 @@ a {
       }
     }
   }
+}
+
+.headline {
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.inner{
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 85px);
+  overflow: hidden;
 }

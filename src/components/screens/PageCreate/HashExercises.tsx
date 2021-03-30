@@ -1,28 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {Form, Input, Button, Select, Table, Tag, Tooltip, Modal} from 'antd';
+import {Form, Input, Button, Select, Table, Tag, Tooltip, Modal, Empty} from 'antd';
 import {InfoCircleOutlined, DeleteOutlined} from '@ant-design/icons';
 import {changeExercise, exercise, setExercise, deleteExercise} from "@redux/exercises-reducer";
 import {I_state} from "@redux/types";
 import {connect} from "react-redux";
+import {I_tag, tags} from '@components/common/Tags';
+import { Headline } from '@components/common/Headline';
 
 const {confirm} = Modal;
 const {Option} = Select;
 
-interface I_tag {
-    type: string,
-    color: string
-}
-
-const tags: I_tag[] = [
-    {'type': 'Грудь', 'color': 'red'},
-    {'type': 'Плечи', 'color': 'orange'},
-    {'type': 'Бицепс', 'color': 'gold'},
-    {'type': 'Трицепс', 'color': 'green'},
-    {'type': 'Спина', 'color': 'cyan'},
-    {'type': 'Пресс', 'color': 'geekblue'},
-    {'type': 'Ноги', 'color': 'purple'},
-    {'type': 'Ягодицы', 'color': 'magenta'}
-];
 const columns = [
     {
         title: 'Упражнение',
@@ -83,9 +70,7 @@ const HashExercisesContainer: React.FC<propsType> = ({exercisesList, setExercise
     const EditExercise: React.FC<EditExercisePropsType> = ({element}) => {
         return <div className={'exercises-add'}>
             <div className={'exercises-wrapper'}>
-                <div className={'exercises-header'}>
-                    {elementToEdit ? `Изменить упражнение: "${element?.name}"` : 'Добавить упражение'}
-                </div>
+                <Headline text={elementToEdit ? `Изменить упражнение: "${element?.name}"` : 'Добавить упражение'}/>
             </div>
             <Form form={form} className={'exercises-form'} name={'dynamic_form_nest_item'} onFinish={onFinish}
                   initialValues={{
@@ -131,29 +116,32 @@ const HashExercisesContainer: React.FC<propsType> = ({exercisesList, setExercise
     }
 
     return (
-        <div className={'exercises'}>
+        <div className={'exercises inner'}>
             <EditExercise element={elementToEdit}/>
             <div className={'exercises-list'}>
                 <div className={'exercises-wrapper'}>
-                    <div className={'exercises-header'}>Список упражнений</div>
+                    <Headline text={'Список упражнений'}/>
                     <Tooltip title={'Нажмите на нужный пункт в таблице чтобы редактировать.'}>
                         <InfoCircleOutlined/>
                     </Tooltip>
                 </div>
-                <Table onRow={record => ({
-                    onClick: () => {
-                        setElementToEdit(exercisesList.filter(el => el.id === record.id)[0])
-                    }
-                })}
-                       sticky={true} className={'exercises-list-table'} dataSource={exercisesList.map(el => {
-                    return {
-                        ...el,
-                        'tags': <div className={'exercises-list-tags'}>
-                            {el.tags.map(tag =>
-                                <Tag color={tags.find(item => item.type === tag)?.color}>{tag}</Tag>
-                            )}</div>
-                    }
-                })} columns={columns} pagination={false} size="small"/>
+                <Table
+                    locale={{
+                        emptyText: <Empty description={'Чтоб начать, добавьте новые упражнения.'}
+                                          image={Empty.PRESENTED_IMAGE_SIMPLE}/>
+                    }}
+                    onRow={record => ({
+                        onClick: () => {
+                            setElementToEdit(exercisesList.filter(el => el.id === record.id)[0])
+                        }
+                    })}
+                    sticky={true} className={'exercises-list-table'}
+                    dataSource={exercisesList.map(el => ({
+                        ...el, 'tags': <div className={'exercises-list-tags'}>
+                            {el.tags.map((tag, i) => <Tag key={i} color={tags.find(item => item.type === tag)?.color}>{tag}</Tag>)}
+                        </div>
+                    }))}
+                    columns={columns} pagination={false} size="small"/>
             </div>
         </div>
     );
@@ -165,4 +153,8 @@ let mapStateToProps = (state: I_state) => {
     }
 };
 
-export const HashExercises = connect(mapStateToProps, {setExercise, changeExercise, deleteExercise})(HashExercisesContainer);
+export const HashExercises = connect(mapStateToProps, {
+    setExercise,
+    changeExercise,
+    deleteExercise
+})(HashExercisesContainer);

@@ -1,6 +1,7 @@
 import {Card, Table, Tag} from "antd";
 import React from "react";
 import {EditOutlined} from '@ant-design/icons';
+import { Headline } from "@components/common/Headline";
 
 const PageList = () => {
     const columns = [
@@ -70,6 +71,7 @@ const PageList = () => {
 
     return (
         <div className={'content-list'}>
+            {/*<Headline text={'Хроника тренировок'}/>*/}
             <Card key={1} size={'small'} title="Тренировка 8.03.2021 16:45"
                   extra={<a href="#"><EditOutlined key="edit"/></a>}>
                 <div className={'content-list-summary'}>

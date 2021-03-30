@@ -1,9 +1,10 @@
+import { Headline } from "@components/common/Headline";
 import React from "react";
 
 const Settings: React.FC = () => {
     return (
-        <div>
-            Настройки
+        <div className={'settings inner'}>
+            <Headline text={'Настройки'}/>
         </div>
     )
 }

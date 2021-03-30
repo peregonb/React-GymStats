@@ -1,10 +1,12 @@
 import React from 'react';
+import {Headline} from "@components/common/Headline";
+import { TransferCustom } from '@components/common/Transfer';
 
-type Props = {};
-export const HashTemplates = (props: Props) => {
+export const HashTemplates = () => {
     return (
-        <div>
-            шаблон
+        <div className={'templates inner'}>
+            <Headline text={'Создать шаблон тренировочного дня'}/>
+            <TransferCustom/>
         </div>
     );
 };
