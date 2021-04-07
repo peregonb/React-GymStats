@@ -98,7 +98,7 @@ a {
   &-list {
     padding: 15px;
 
-    &-wrapper{
+    &-wrapper {
       margin-top: 10px;
       display: flex;
       flex-direction: column;
@@ -157,6 +157,9 @@ a {
   display: flex;
   justify-content: flex-start;
   align-items: stretch;
+  position: sticky;
+  top: 0;
+  z-index: 50;
 
   &-item {
     display: flex;
@@ -338,7 +341,6 @@ a {
   }
 }
 
-
 .ant-modal {
   max-width: 75vw;
 
@@ -380,10 +382,103 @@ a {
   margin-right: 8px;
 }
 
-.inner{
+.inner {
   padding: 15px;
   display: flex;
   flex-direction: column;
   height: calc(100vh - 85px);
-  overflow: hidden;
+  //overflow: hidden;
+}
+
+.transfer {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+
+  &-headline {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .ant-transfer-list {
+    width: 100%;
+
+    &:last-of-type {
+      .ant-transfer-list-body-search-wrapper {
+        display: none;
+      }
+    }
+
+    &-header {
+      &-dropdown,
+      &-selected {
+        display: none;
+      }
+
+      &-title {
+        text-align: left;
+      }
+    }
+  }
+
+  .ant-transfer-operation {
+    flex-direction: row-reverse;
+    align-self: flex-end;
+    margin: 10px 0;
+
+    .ant-btn {
+      margin-bottom: 0;
+      transform: rotate(90deg);
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .anticon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      &:not(:first-child) {
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+.templates {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  &-submit {
+    align-self: flex-start;
+    margin-top: 10px;
+  }
+
+  &-headline {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    span {
+      font-size: 16px;
+    }
+  }
+
+  &-transfer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden;
+    transition: max-height .5s;
+  }
+
+  &-wrapper {
+    &:not(:first-child) {
+      margin-top: 15px;
+    }
+  }
 }

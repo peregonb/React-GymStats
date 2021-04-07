@@ -2,7 +2,14 @@ const SET_EXERCISES = 'SET_EXERCISES';
 
 let initialState = {
     templatesList: [
-        {'name': 'Тренировка: Грудь + Бицепс', 'exercises': []}
+        {
+            "title": "Тренировка: Грудь + Бицепс", "exercises": [
+                {"name": "Жим штанги лежа", "tags": ["Грудь"], "key": 1, "id": 1},
+                {"name": "Разведения гантель в наклоне", "tags": ["Грудь"], "key": 2, "id": 2},
+                {"name": "Подъем штанги на бицепс", "tags": ["Бицепс"], "key": 3, "id": 3},
+                {"name": "Жим штанги лежа в наклоне", "tags": ["Грудь"], "id": 4, "key": 4}
+            ]
+        }
     ],
 };
 
