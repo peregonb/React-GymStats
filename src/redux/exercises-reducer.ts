@@ -4,16 +4,16 @@ const DELETE_EXERCISE = 'DELETE_EXERCISE';
 
 let initialState = {
     exercisesList: [
-        {"name": "Жим штанги лежа", "tags": ["Грудь"], "key": 1, "id": 1},
-        {"name": "Разведения гантель в наклоне", "tags": ["Грудь"], "key": 2, "id": 2},
-        {"name": "Подъем штанги на бицепс", "tags": ["Бицепс"], "key": 3, "id": 3},
-        {"name": "Жим штанги лежа в наклоне", "tags": ["Грудь"], "id": 4, "key": 4},
-        {"name": "Отжимания на брусьях", "tags": ["Грудь", "Трицепс"], "id": 5, "key": 5},
-        {"name": "Подтягивания обратным хватом", "tags": ["Бицепс", "Спина"], "id": 6, "key": 6},
-        {"name": "Жим гантелей сидя", "tags": ["Плечи"], "id": 7, "key": 7},
-        {"name": "Тяга блока к груди", "tags": ["Спина", "Плечи"], "id": 8, "key": 8},
-        {"name": "Махи гантелей", "tags": ["Плечи"], "id": 9, "key": 9},
-        {"name": "Приседания", "tags": ["Ноги"], "id": 10, "key": 10}
+        {"name": "Жим штанги лежа", "tags": ["Грудь"], "key": 1, "id": "1"},
+        {"name": "Разведения гантель в наклоне", "tags": ["Грудь"], "key": 2, "id": "2"},
+        {"name": "Подъем штанги на бицепс", "tags": ["Бицепс"], "key": 3, "id": "3"},
+        {"name": "Жим штанги лежа в наклоне", "tags": ["Грудь"], "key": 4, "id": "4"},
+        {"name": "Отжимания на брусьях", "tags": ["Грудь", "Трицепс"], "key": 5, "id": "5"},
+        {"name": "Подтягивания обратным хватом", "tags": ["Бицепс", "Спина"], "key": 6, "id": "6"},
+        {"name": "Жим гантелей сидя", "tags": ["Плечи"], "key": 7, "id": "7"},
+        {"name": "Тяга блока к груди", "tags": ["Спина", "Плечи"], "key": 8, "id": "8"},
+        {"name": "Махи гантелей", "tags": ["Плечи"], "key": 9, "id": "9"},
+        {"name": "Приседания", "tags": ["Ноги"], "key": 10, "id": "10"}
     ],
 };
 
@@ -21,7 +21,7 @@ export type exercise = {
     name: string,
     tags: string[],
     key: number,
-    id: number
+    id: string
 }
 
 interface I_setExercise {
@@ -32,20 +32,20 @@ interface I_setExercise {
 
 interface I_changeExercise {
     type: typeof CHANGE_EXERCISE
-    id: number
+    id: string
     name: string
     tags: string[]
 }
 
 interface I_deleteExercise {
     type: typeof DELETE_EXERCISE
-    id: number
+    id: string
 }
 
 type actionType = I_setExercise | I_changeExercise | I_deleteExercise;
 
 
-const getUniqID = (arr: exercise[]) => Math.max(...arr.map(el => el.key)) + 1;
+const getUniqID = (arr: any) => Math.max(...arr.map((el: exercise) => el.key)) + 1;
 
 const exercisesReducer = (state = initialState, action: actionType) => {
     switch (action.type) {
@@ -56,7 +56,7 @@ const exercisesReducer = (state = initialState, action: actionType) => {
                     name: action.name.trim(),
                     tags: action.tags,
                     id: getUniqID(state.exercisesList),
-                    key: getUniqID(state.exercisesList)
+                    key: `${getUniqID(state.exercisesList)}`
                 }]
             };
 
@@ -88,14 +88,14 @@ export const setExercise = (name: string, tags: string[]): I_setExercise => {
     }
 };
 
-export const changeExercise = (id: number, name: string, tags: string[]): I_changeExercise => {
+export const changeExercise = (id: string, name: string, tags: string[]): I_changeExercise => {
     return {
         type: CHANGE_EXERCISE,
         id, name, tags
     }
 };
 
-export const deleteExercise = (id: number): I_deleteExercise => {
+export const deleteExercise = (id: string): I_deleteExercise => {
     return {
         type: DELETE_EXERCISE,
         id

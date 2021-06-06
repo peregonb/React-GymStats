@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Empty, Input, Transfer} from 'antd';
+import { exercise } from '@redux/exercises-reducer';
 
 const mockData: {key: string, title: string}[] = [];
 for (let i = 0; i < 10; i++) {
@@ -11,7 +12,7 @@ for (let i = 0; i < 10; i++) {
 
 // const initialTargetKeys = mockData.filter(item => +item.key > 10).map(item => item.key);
 
-export const TransferCustom = () => {
+export const TransferCustom = ({data}: {data: exercise[]}) => {
     const [targetKeys, setTargetKeys] = useState(); //initial values
     const [selectedKeys, setSelectedKeys] = useState([]);
     // @ts-ignore
@@ -20,6 +21,8 @@ export const TransferCustom = () => {
         console.log('direction:', direction);
         console.log('moveKeys:', moveKeys);
         setTargetKeys(nextTargetKeys);
+
+        console.log(data)
     };
 
     // @ts-ignore

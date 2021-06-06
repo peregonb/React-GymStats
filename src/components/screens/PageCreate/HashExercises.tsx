@@ -26,8 +26,8 @@ const columns = [
 type propsType = {
     exercisesList: exercise[],
     setExercise: (name: string, tags: string[]) => void;
-    changeExercise: (id: number, name: string, tags: string[]) => void;
-    deleteExercise: (id: number) => void
+    changeExercise: (id: string, name: string, tags: string[]) => void;
+    deleteExercise: (id: string) => void
 }
 
 type EditExercisePropsType = {
