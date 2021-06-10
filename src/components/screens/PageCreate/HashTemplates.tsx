@@ -11,10 +11,6 @@ const HashTemplatesContainer = ({exercisesList} : {exercisesList: exercise[]}) =
     const [expandTransfer, setExpandTransfer] = useState(false);
     const ExpandIcon = expandTransfer ? FullscreenOutlined : FullscreenExitOutlined;
 
-    const showValues = () => {
-
-    }
-
     return (
         <div className={'templates inner'}>
             <div className={'templates-wrapper'}>
@@ -24,9 +20,6 @@ const HashTemplatesContainer = ({exercisesList} : {exercisesList: exercise[]}) =
                 </div>
                 <div style={{maxHeight: expandTransfer ? 0 : 500}} className={'templates-transfer'}>
                     <TransferCustom data={exercisesList} />
-                    <Button className={'templates-submit'} type={'primary'} onClick={() => showValues()}>
-                        Добавить
-                    </Button>
                 </div>
             </div>
 

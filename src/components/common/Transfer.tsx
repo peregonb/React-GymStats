@@ -1,64 +1,71 @@
-import React, {useState} from 'react';
-import {Empty, Input, Transfer} from 'antd';
-import { exercise } from '@redux/exercises-reducer';
+import React, {useEffect, useState} from 'react';
+import {Button, Empty, Input, Tag, Tooltip, Transfer} from 'antd';
+import {exercise} from '@redux/exercises-reducer';
+import {I_tag} from "@components/common/Tags";
+import {log} from "util";
 
-const mockData: {key: string, title: string}[] = [];
-for (let i = 0; i < 10; i++) {
-    mockData.push({
-        key: i.toString(),
-        title: `content${i + 1}`,
-    });
-}
+export const TransferCustom = ({data}: { data: exercise[] }) => {
+    const [targetKeys, setTargetKeys] = useState();
+    const [templateName, setTemplateName] = useState('');
+    const [tooltipVisibility, setTooltipVisibility] = useState(false);
 
-// const initialTargetKeys = mockData.filter(item => +item.key > 10).map(item => item.key);
-
-export const TransferCustom = ({data}: {data: exercise[]}) => {
-    const [targetKeys, setTargetKeys] = useState(); //initial values
-    const [selectedKeys, setSelectedKeys] = useState([]);
     // @ts-ignore
     const onChange = (nextTargetKeys, direction, moveKeys) => {
         console.log('targetKeys:', nextTargetKeys);
-        console.log('direction:', direction);
+        // console.log('direction:', direction);
         console.log('moveKeys:', moveKeys);
         setTargetKeys(nextTargetKeys);
 
         console.log(data)
     };
 
-    // @ts-ignore
-    const onSelectChange = (sourceSelectedKeys, targetSelectedKeys) => {
-        console.log('sourceSelectedKeys:', sourceSelectedKeys);
-        console.log('targetSelectedKeys:', targetSelectedKeys);
-        // @ts-ignore
-        setSelectedKeys([...sourceSelectedKeys, ...targetSelectedKeys]);
+    const onSelectChange = () => {
+        tooltipVisibility && setTooltipVisibility(false);
     };
 
-    const HeadlineTemplate = () => {
-        return (
-            <div className={'transfer-headline'}>
-                <div>Шаблон:</div>
-                <Input placeholder="Новый шаблон" bordered={false}/>
-            </div>
-        )
-    }
+    const validateForm = () => {
+        if (targetKeys && templateName !== '') {
+            console.log('validated');
+            setTooltipVisibility(false);
+        } else {
+            setTooltipVisibility(true);
+        }
+    };
 
     return (
-        <Transfer
-            dataSource={mockData}
-            titles={['Все упражения', <HeadlineTemplate/>]}
-            className={'transfer'}
-            showSearch={true}
-            targetKeys={targetKeys}
-            selectedKeys={selectedKeys}
-            onChange={onChange}
-            onSelectChange={onSelectChange}
-            showSelectAll={false}
-            render={item => item.title}
-            locale={{
-                notFoundContent: <Empty description={'Чтоб начать, добавьте новые упражнения.'}
-                                  image={Empty.PRESENTED_IMAGE_SIMPLE}/>,
-                searchPlaceholder: 'Поиск'
-            }}
-        />
+        <>
+            <Transfer
+                dataSource={data}
+                titles={['Все упражения',
+                    <div className={'transfer-headline'}>
+                        <div>Шаблон:</div>
+                        <Input placeholder="Новый шаблон" bordered={false} value={templateName}
+                               onChange={e => {
+                                   setTooltipVisibility(false);
+                                   setTemplateName(e.target.value);
+                               }}/>
+                    </div>
+                ]}
+                className={'transfer'}
+                showSearch={true}
+                targetKeys={targetKeys}
+                onChange={onChange}
+                showSelectAll={false}
+                onSelectChange={onSelectChange}
+                render={item => item.name}
+                locale={{
+                    notFoundContent: <Empty description={'Добавьте новые упражнения.'}
+                                            image={Empty.PRESENTED_IMAGE_SIMPLE}/>,
+                    searchPlaceholder: 'Поиск'
+                }}
+            />
+
+            <Tooltip color={'rgb(86, 3, 25)'} visible={tooltipVisibility} placement="right" className={'error-tooltip'}
+                     title={'Поле названия и поле контента не может быть пустым.'}>
+                <Button className={'templates-submit'} type={'primary'} onClick={() => validateForm()}>
+                    Добавить
+                </Button>
+            </Tooltip>
+        </>
     );
-};
+}

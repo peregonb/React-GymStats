@@ -4,24 +4,24 @@ const DELETE_EXERCISE = 'DELETE_EXERCISE';
 
 let initialState = {
     exercisesList: [
-        {"name": "Жим штанги лежа", "tags": ["Грудь"], "key": 1, "id": "1"},
-        {"name": "Разведения гантель в наклоне", "tags": ["Грудь"], "key": 2, "id": "2"},
-        {"name": "Подъем штанги на бицепс", "tags": ["Бицепс"], "key": 3, "id": "3"},
-        {"name": "Жим штанги лежа в наклоне", "tags": ["Грудь"], "key": 4, "id": "4"},
-        {"name": "Отжимания на брусьях", "tags": ["Грудь", "Трицепс"], "key": 5, "id": "5"},
-        {"name": "Подтягивания обратным хватом", "tags": ["Бицепс", "Спина"], "key": 6, "id": "6"},
-        {"name": "Жим гантелей сидя", "tags": ["Плечи"], "key": 7, "id": "7"},
-        {"name": "Тяга блока к груди", "tags": ["Спина", "Плечи"], "key": 8, "id": "8"},
-        {"name": "Махи гантелей", "tags": ["Плечи"], "key": 9, "id": "9"},
-        {"name": "Приседания", "tags": ["Ноги"], "key": 10, "id": "10"}
+        {"name": "Жим штанги лежа", "tags": ["Грудь"], "id": 1, "key": "1"},
+        {"name": "Разведения гантель в наклоне", "tags": ["Грудь"], "id": 2, "key": "2"},
+        {"name": "Подъем штанги на бицепс", "tags": ["Бицепс"], "id": 3, "key": "3"},
+        {"name": "Жим штанги лежа в наклоне", "tags": ["Грудь"], "id": 4, "key": "4"},
+        {"name": "Отжимания на брусьях", "tags": ["Грудь", "Трицепс"], "id": 5, "key": "5"},
+        {"name": "Подтягивания обратным хватом", "tags": ["Бицепс", "Спина"], "id": 6, "key": "6"},
+        {"name": "Жим гантелей сидя", "tags": ["Плечи"], "id": 7, "key": "7"},
+        {"name": "Тяга блока к груди", "tags": ["Спина", "Плечи"], "id": 8, "key": "8"},
+        {"name": "Махи гантелей", "tags": ["Плечи"], "id": 9, "key": "9"},
+        {"name": "Приседания", "tags": ["Ноги"], "id": 10, "key": "10"}
     ],
 };
 
 export type exercise = {
     name: string,
     tags: string[],
-    key: number,
-    id: string
+    key: string,
+    id: number
 }
 
 interface I_setExercise {
@@ -32,14 +32,14 @@ interface I_setExercise {
 
 interface I_changeExercise {
     type: typeof CHANGE_EXERCISE
-    id: string
+    id: number
     name: string
     tags: string[]
 }
 
 interface I_deleteExercise {
     type: typeof DELETE_EXERCISE
-    id: string
+    id: number
 }
 
 type actionType = I_setExercise | I_changeExercise | I_deleteExercise;
@@ -88,14 +88,14 @@ export const setExercise = (name: string, tags: string[]): I_setExercise => {
     }
 };
 
-export const changeExercise = (id: string, name: string, tags: string[]): I_changeExercise => {
+export const changeExercise = (id: number, name: string, tags: string[]): I_changeExercise => {
     return {
         type: CHANGE_EXERCISE,
         id, name, tags
     }
 };
 
-export const deleteExercise = (id: string): I_deleteExercise => {
+export const deleteExercise = (id: number): I_deleteExercise => {
     return {
         type: DELETE_EXERCISE,
         id

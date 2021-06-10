@@ -17,7 +17,7 @@ let initialState = {
 
 interface I_setExercise {
     type: typeof SET_EXERCISES,
-    exercisesList: any
+    exercisesList: exercise[]
 }
 
 
@@ -40,7 +40,7 @@ const templatesReducer = (state = initialState, action: actionType) => {
     }
 };
 
-export const setExercise = (exercisesList: any): I_setExercise => {
+export const setExercise = (exercisesList: exercise[]): I_setExercise => {
     return {
         type: SET_EXERCISES,
         exercisesList
