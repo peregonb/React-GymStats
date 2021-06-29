@@ -2,10 +2,12 @@ import {combineReducers, createStore} from "redux";
 import appReducer from "./app-reducer";
 import {I_state} from "@redux/types";
 import exercisesReducer from "./exercises-reducer";
+import templatesReducer from "@redux/templates-reducer";
 
 let reducers = combineReducers({
     app: appReducer,
-    exercises: exercisesReducer
+    exercises: exercisesReducer,
+    templates: templatesReducer
 });
 
 const saveToLocalStorage = (state: I_state) => {

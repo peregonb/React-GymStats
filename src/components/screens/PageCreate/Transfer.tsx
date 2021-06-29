@@ -1,32 +1,56 @@
-import React, {useEffect, useState} from 'react';
-import {Button, Empty, Input, Tag, Tooltip, Transfer} from 'antd';
+import React, {Dispatch, SetStateAction, useState} from 'react';
+import {Button, Empty, Input, Modal, Tooltip, Transfer} from 'antd';
 import {exercise} from '@redux/exercises-reducer';
-import {I_tag} from "@components/common/Tags";
-import {log} from "util";
+import {connect} from "react-redux";
+import {addTemplate} from "@redux/templates-reducer";
 
-export const TransferCustom = ({data}: { data: exercise[] }) => {
+type propTypes = {
+    data: exercise[],
+    setExpandTransfer: Dispatch<SetStateAction<boolean>>,
+    addTemplate: any
+}
+
+const TransferCustomContainer: React.FC<propTypes> = ({data, setExpandTransfer, addTemplate}) => {
     const [targetKeys, setTargetKeys] = useState();
+    const [finalExercises, setFinalExercises] = useState<exercise[]>([]);
     const [templateName, setTemplateName] = useState('');
     const [tooltipVisibility, setTooltipVisibility] = useState(false);
 
-    // @ts-ignore
-    const onChange = (nextTargetKeys, direction, moveKeys) => {
-        console.log('targetKeys:', nextTargetKeys);
-        // console.log('direction:', direction);
-        console.log('moveKeys:', moveKeys);
+    const cleanTransfer = () => {
+        setTemplateName('');
+        setExpandTransfer(val => !val);
+    }
+
+    const onChange = (nextTargetKeys: any): void => {
         setTargetKeys(nextTargetKeys);
 
-        console.log(data)
-    };
+        let result: exercise[] = [];
+        nextTargetKeys && nextTargetKeys.map((key: string) => {
+            for (let el of data) {
+                if (key === el.key) {
+                    result = [...result, {...el}]
+                }
+            }
+            return true;
+        })
 
-    const onSelectChange = () => {
-        tooltipVisibility && setTooltipVisibility(false);
+        setFinalExercises(result);
     };
 
     const validateForm = () => {
         if (targetKeys && templateName !== '') {
-            console.log('validated');
+            const newTemplate = {
+                title: templateName,
+                exercises: finalExercises
+            };
+
+            addTemplate(newTemplate);
             setTooltipVisibility(false);
+            cleanTransfer();
+
+            Modal.success({
+                content: 'Шаблон добавлен!'
+            });
         } else {
             setTooltipVisibility(true);
         }
@@ -51,7 +75,6 @@ export const TransferCustom = ({data}: { data: exercise[] }) => {
                 targetKeys={targetKeys}
                 onChange={onChange}
                 showSelectAll={false}
-                onSelectChange={onSelectChange}
                 render={item => item.name}
                 locale={{
                     notFoundContent: <Empty description={'Добавьте новые упражнения.'}
@@ -69,3 +92,7 @@ export const TransferCustom = ({data}: { data: exercise[] }) => {
         </>
     );
 }
+
+export const TransferCustom = connect(null, {
+    addTemplate,
+})(TransferCustomContainer);

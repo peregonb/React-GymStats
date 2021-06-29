@@ -1,3 +1,5 @@
+import {getUniqID} from "@components/common/helpers";
+
 const SET_EXERCISES = 'SET_EXERCISES';
 const CHANGE_EXERCISE = 'CHANGE_EXERCISE';
 const DELETE_EXERCISE = 'DELETE_EXERCISE';
@@ -43,9 +45,6 @@ interface I_deleteExercise {
 }
 
 type actionType = I_setExercise | I_changeExercise | I_deleteExercise;
-
-
-const getUniqID = (arr: any) => Math.max(...arr.map((el: exercise) => el.key)) + 1;
 
 const exercisesReducer = (state = initialState, action: actionType) => {
     switch (action.type) {

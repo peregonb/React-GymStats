@@ -59,7 +59,8 @@ const HashExercisesContainer: React.FC<propsType> = ({exercisesList, setExercise
             onOk() {
                 elementToEdit && deleteExercise(elementToEdit.id);
                 setElementToEdit(undefined);
-            }
+            },
+            okButtonProps: {danger: true}
         });
     };
 

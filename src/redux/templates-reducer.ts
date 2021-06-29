@@ -1,37 +1,74 @@
-import { exercise } from "./exercises-reducer";
+import {exercise} from "./exercises-reducer";
+import {getUniqID} from "@components/common/helpers";
 
-const SET_EXERCISES = 'SET_EXERCISES';
+const ADD_TEMPLATE = 'ADD_TEMPLATE';
+const DELETE_TEMPLATE = 'DELETE_TEMPLATE';
 
 let initialState = {
     templatesList: [
         {
-            "title": "Тренировка: Грудь + Бицепс", "exercises": [
+            "key": "1",
+            "id": 1,
+            "title": "Тренировка: Грудь + Бицепс",
+            "exercises": [
                 {"name": "Жим штанги лежа", "tags": ["Грудь"], "key": "1", "id": 1},
                 {"name": "Разведения гантель в наклоне", "tags": ["Грудь"], "key": "2", "id": 2},
                 {"name": "Подъем штанги на бицепс", "tags": ["Бицепс"], "key": "3", "id": 3},
-                {"name": "Жим штанги лежа в наклоне", "tags": ["Грудь"], "id": "4", "key": 4}
+                {"name": "Жим штанги лежа в наклоне", "tags": ["Грудь"], "key": "4", "id": 4}
+            ]
+        },
+        {
+            "key": "2",
+            "id": 2,
+            "title": "Тренировка: Спина + Плечи",
+            "exercises": [
+                {"name": "Подтягивания обратным хватом", "tags": ["Бицепс", "Спина"], "id": 1, "key": "1"},
+                {"name": "Жим гантелей сидя", "tags": ["Плечи"], "id": 2, "key": "2"},
+                {"name": "Тяга блока к груди", "tags": ["Спина", "Плечи"], "id": 3, "key": "3"},
+                {"name": "Махи гантелей", "tags": ["Плечи"], "id": 4, "key": "4"},
             ]
         }
     ],
 };
 
-interface I_setExercise {
-    type: typeof SET_EXERCISES,
-    exercisesList: exercise[]
+export type template = {
+    key: string,
+    id: number,
+    title: string,
+    exercises: exercise[],
+}
+
+export interface I_addTemplate {
+    type: typeof ADD_TEMPLATE,
+    newTemplate: template
+}
+
+export interface I_deleteTemplate {
+    type: typeof DELETE_TEMPLATE,
+    id: number
 }
 
 
-type actionType = I_setExercise;
+type actionType = I_addTemplate | I_deleteTemplate;
 
-
-// const getUniqID = (arr: exercise[]) => Math.max(...arr.map(el => el.key)) + 1;
 
 const templatesReducer = (state = initialState, action: actionType) => {
     switch (action.type) {
-        case SET_EXERCISES:
+        case ADD_TEMPLATE:
             return {
                 ...state,
-                exercisesList: action.exercisesList
+                templatesList: [{
+                    title: action.newTemplate.title,
+                    exercises: action.newTemplate.exercises,
+                    id: getUniqID(state.templatesList),
+                    key: `${getUniqID(state.templatesList)}`
+                }, ...state.templatesList]
+            };
+
+        case DELETE_TEMPLATE:
+            return {
+                ...state,
+                templatesList: state.templatesList.filter(el => el.id !== action.id)
             };
 
 
@@ -40,10 +77,17 @@ const templatesReducer = (state = initialState, action: actionType) => {
     }
 };
 
-export const setExercise = (exercisesList: exercise[]): I_setExercise => {
+export const addTemplate = (newTemplate: template): I_addTemplate => {
     return {
-        type: SET_EXERCISES,
-        exercisesList
+        type: ADD_TEMPLATE,
+        newTemplate
+    }
+};
+
+export const deleteTemplate = (id: number): I_deleteTemplate => {
+    return {
+        type: DELETE_TEMPLATE,
+        id
     }
 };
 
