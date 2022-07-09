@@ -1,20 +1,20 @@
-import {I_state} from '@redux/types';
-import {connect} from "react-redux";
+import { I_state } from '@redux/types';
+import { connect } from 'react-redux';
 import React from 'react';
-import {deleteTemplate, template} from "@redux/templates-reducer";
-import {List, Modal} from 'antd';
-import {exercise} from "@redux/exercises-reducer";
-import {DeleteOutlined} from '@ant-design/icons';
+import { deleteTemplate, template } from '@redux/templates';
+import { List, Modal } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
+import { I_exercise } from '@redux/exercises/types';
 
 
-const {confirm} = Modal;
+const { confirm } = Modal;
 
 type propsType = {
     templatesList: template[],
     deleteTemplate: (id: number) => void,
 }
 
-const TreeTrainingsContainer: React.FC<propsType> = ({templatesList, deleteTemplate}) => {
+const TreeTrainingsContainer: React.FC<propsType> = ({ templatesList, deleteTemplate }) => {
 
     const showDeleteConfirm = (targetId: number) => {
         confirm({
@@ -32,25 +32,30 @@ const TreeTrainingsContainer: React.FC<propsType> = ({templatesList, deleteTempl
 
     return (
         <>
-            {templatesList.map((single: template) => {
+            { templatesList.map((single: template) => {
                 const listData: string[] = [];
-                single.exercises.map((el: exercise) => listData.push(el.name));
+                single.exercises.map((el: I_exercise) => listData.push(el.name));
 
                 return (<List
-                    key={single.key}
+                    key={ single.key }
                     size="small"
-                    header={<div className="templates-list-header">{single.title} <DeleteOutlined onClick={() => showDeleteConfirm(single.id)}/></div>}
+                    header={ (
+                        <div className="templates-list-header">
+                            { single.title }
+                            <DeleteOutlined onClick={ () => showDeleteConfirm(single.id) }/>
+                        </div>
+                    ) }
                     bordered
-                    dataSource={listData}
-                    renderItem={item => <List.Item>{item}</List.Item>}
+                    dataSource={ listData }
+                    renderItem={ item => <List.Item>{ item }</List.Item> }
                 />)
-            })}
+            }) }
         </>
     );
 };
 
 
-let mapStateToProps = (state: I_state) => {
+const mapStateToProps = (state: I_state) => {
     return {
         templatesList: state.templates.templatesList,
     }

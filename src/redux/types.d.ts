@@ -1,5 +1,7 @@
-import {exercise} from "./exercises-reducer";
-import {template} from "./templates-reducer";
+import { exercise } from './exercises';
+import { template } from './templates';
+
+type Nullable<T> = T | null;
 
 export interface I_appReducer {
     darkTheme: boolean

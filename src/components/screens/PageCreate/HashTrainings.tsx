@@ -1,10 +1,10 @@
 import { Headline } from '@components/common/Headline';
-import React from 'react';
+import React, { FC } from 'react';
 
-export const HashTrainings = () => {
+export const HashTrainings: FC = () => {
     return (
-        <div className={'training inner'}>
-            <Headline text={'Добавить новую тренировку'}/>
+        <div className={ 'training inner' }>
+            <Headline text={ 'Добавить новую тренировку' }/>
         </div>
     );
 };

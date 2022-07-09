@@ -1,20 +1,20 @@
-import React, {Dispatch, SetStateAction, useState} from 'react';
-import {Button, Empty, Input, Modal, Tooltip, Transfer} from 'antd';
-import {exercise} from '@redux/exercises-reducer';
-import {connect} from "react-redux";
-import {addTemplate} from "@redux/templates-reducer";
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import { Button, Empty, Input, Modal, Tooltip, Transfer } from 'antd';
+import { connect } from 'react-redux';
+import { addTemplate } from '@redux/templates';
+import { I_exercise } from '@redux/exercises/types';
 
 type propTypes = {
-    data: exercise[],
+    data: I_exercise[],
     setExpandTransfer: Dispatch<SetStateAction<boolean>>,
     addTemplate: any
 }
 
-const TransferCustomContainer: React.FC<propTypes> = ({data, setExpandTransfer, addTemplate}) => {
-    const [targetKeys, setTargetKeys] = useState();
-    const [finalExercises, setFinalExercises] = useState<exercise[]>([]);
-    const [templateName, setTemplateName] = useState('');
-    const [tooltipVisibility, setTooltipVisibility] = useState(false);
+const TransferCustomContainer: React.FC<propTypes> = ({ data, setExpandTransfer, addTemplate }) => {
+    const [ targetKeys, setTargetKeys ] = useState();
+    const [ finalExercises, setFinalExercises ] = useState<I_exercise[]>([]);
+    const [ templateName, setTemplateName ] = useState('');
+    const [ tooltipVisibility, setTooltipVisibility ] = useState(false);
 
     const cleanTransfer = () => {
         setTemplateName('');
@@ -24,11 +24,11 @@ const TransferCustomContainer: React.FC<propTypes> = ({data, setExpandTransfer, 
     const onChange = (nextTargetKeys: any): void => {
         setTargetKeys(nextTargetKeys);
 
-        let result: exercise[] = [];
+        let result: I_exercise[] = [];
         nextTargetKeys && nextTargetKeys.map((key: string) => {
-            for (let el of data) {
+            for (const el of data) {
                 if (key === el.key) {
-                    result = [...result, {...el}]
+                    result = [ ...result, { ...el } ]
                 }
             }
             return true;
@@ -59,33 +59,44 @@ const TransferCustomContainer: React.FC<propTypes> = ({data, setExpandTransfer, 
     return (
         <>
             <Transfer
-                dataSource={data}
-                titles={['Все упражения',
-                    <div className={'transfer-headline'}>
+                dataSource={ data }
+                titles={ [ 'Все упражения', (
+                    <div key={ 1 } className={ 'transfer-headline' }>
                         <div>Шаблон:</div>
-                        <Input placeholder="Новый шаблон" bordered={false} value={templateName}
-                               onChange={e => {
-                                   setTooltipVisibility(false);
-                                   setTemplateName(e.target.value);
-                               }}/>
+                        <Input
+                            placeholder={ 'Новый шаблон' }
+                            bordered={ false }
+                            value={ templateName }
+                            onChange={ e => {
+                                setTooltipVisibility(false);
+                                setTemplateName(e.target.value);
+                            } }/>
                     </div>
-                ]}
-                className={'transfer'}
-                showSearch={true}
-                targetKeys={targetKeys}
-                onChange={onChange}
-                showSelectAll={false}
-                render={item => item.name}
-                locale={{
-                    notFoundContent: <Empty description={'Добавьте новые упражнения.'}
-                                            image={Empty.PRESENTED_IMAGE_SIMPLE}/>,
+                ) ] }
+                className={ 'transfer' }
+                showSearch={ true }
+                targetKeys={ targetKeys }
+                onChange={ onChange }
+                showSelectAll={ false }
+                render={ item => item.name }
+                locale={ {
+                    notFoundContent: (
+                        <Empty description={ 'Добавьте новые упражнения.' } image={ Empty.PRESENTED_IMAGE_SIMPLE }/>
+                    ),
                     searchPlaceholder: 'Поиск'
-                }}
+                } }
             />
 
-            <Tooltip color={'rgb(86, 3, 25)'} visible={tooltipVisibility} placement="right" className={'error-tooltip'}
-                     title={'Поле названия и поле контента не может быть пустым.'}>
-                <Button className={'templates-submit'} type={'primary'} onClick={() => validateForm()}>
+            <Tooltip
+                color={ 'rgb(86, 3, 25)' }
+                visible={ tooltipVisibility }
+                placement={ 'right' }
+                className={ 'error-tooltip' }
+                title={ 'Поле названия и поле контента не может быть пустым.' }>
+                <Button
+                    className={ 'templates-submit' }
+                    type={ 'primary' }
+                    onClick={ () => validateForm() }>
                     Добавить
                 </Button>
             </Tooltip>

@@ -1,14 +1,14 @@
-import React from "react";
+import React, { FC } from 'react';
 
-interface Iprops {
+interface I_PageSingleProps {
     someText?: string
 }
 
-const PageSingle = ({someText = 'текст'}:Iprops) => {
+const PageSingle: FC<I_PageSingleProps> = ({ someText = 'текст' }) => {
 
     return (
-        <div className={'content-single'}>
-            {someText}
+        <div className={ 'content-single' }>
+            { someText }
         </div>
     )
 }

@@ -1,9 +1,8 @@
-import {Card, Table, Tag} from "antd";
-import React from "react";
-import {EditOutlined} from '@ant-design/icons';
-import { Headline } from "@components/common/Headline";
+import { Card, Table, Tag } from 'antd';
+import React, { FC } from 'react';
+import { EditOutlined } from '@ant-design/icons';
 
-const PageList = () => {
+const PageList: FC = () => {
     const columns = [
         {
             title: 'Упражнение',
@@ -52,7 +51,7 @@ const PageList = () => {
             q2: '65кг х5',
         },
         {
-            key: '3',
+            key: '4',
             name: 'Подъем штанги на бицепс',
             age: '40кг х5',
             address: '50кг х5',
@@ -60,7 +59,7 @@ const PageList = () => {
             q2: '65кг х5',
         },
         {
-            key: '3',
+            key: '5',
             name: 'Молотки',
             age: '40кг х5',
             address: '50кг х5',
@@ -70,30 +69,29 @@ const PageList = () => {
     ];
 
     return (
-        <div className={'content-list'}>
-            {/*<Headline text={'Хроника тренировок'}/>*/}
-            <Card key={1} size={'small'} title="Тренировка 8.03.2021 16:45"
-                  extra={<a href="#"><EditOutlined key="edit"/></a>}>
-                <div className={'content-list-summary'}>
+        <div className={ 'content-list' }>
+            <Card key={ 1 } size={ 'small' } title="Тренировка 8.03.2021 16:45"
+                extra={ <a href="#"><EditOutlined key="edit"/></a> }>
+                <div className={ 'content-list-summary' }>
                     <Tag color="#013220">ТНЖ: 15,942</Tag>
                     <Tag color="#560319">КПШ: 123</Tag>
                 </div>
-                <Table pagination={false} columns={columns} dataSource={data} size="small"/>
-                <div className={'content-list-tags'}>
+                <Table pagination={ false } columns={ columns } dataSource={ data } size="small"/>
+                <div className={ 'content-list-tags' }>
                     <Tag color="orange">orange</Tag>
                     <Tag color="gold">gold</Tag>
                     <Tag color="lime">lime</Tag>
                     <Tag color="green">green</Tag>
                 </div>
             </Card>
-            <Card key={2} size={'small'} title="Тренировка 13.03.2021 12:30"
-                  extra={<a href="#"><EditOutlined key="edit"/></a>}>
-                <div className={'content-list-summary'}>
+            <Card key={ 2 } size={ 'small' } title="Тренировка 13.03.2021 12:30"
+                extra={ <a href="#"><EditOutlined key="edit"/></a> }>
+                <div className={ 'content-list-summary' }>
                     <Tag color="#013220">ТНЖ: 17,341</Tag>
                     <Tag color="#560319">КПШ: 213</Tag>
                 </div>
-                <Table pagination={false} columns={columns} dataSource={data} size="small"/>
-                <div className={'content-list-tags'}>
+                <Table pagination={ false } columns={ columns } dataSource={ data } size="small"/>
+                <div className={ 'content-list-tags' }>
                     <Tag color="magenta">magenta</Tag>
                     <Tag color="red">red</Tag>
                     <Tag color="volcano">volcano</Tag>
