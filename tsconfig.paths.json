@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "paths": {
-      "@redux/*": [
+      "src/redux/*": [
         "./src/redux/*"
       ],
-      "@components/*": [
+      "src/components/*": [
         "./src/components/*"
       ]
     }

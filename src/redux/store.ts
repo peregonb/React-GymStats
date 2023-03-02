@@ -1,8 +1,8 @@
 import { combineReducers, createStore } from 'redux';
-import { I_state } from '@redux/types';
+import { I_state } from 'src/redux/types';
 import app from './app';
 import exercises from './exercises';
-import templates from '@redux/templates';
+import templates from 'src/redux/templates';
 
 const reducers = combineReducers({
     app,

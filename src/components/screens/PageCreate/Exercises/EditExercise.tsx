@@ -1,12 +1,12 @@
 import React, { Dispatch, FC, SetStateAction, useState, useEffect } from 'react';
-import { Headline } from '@components/common/Headline';
+import { Headline } from 'src/components/common/Headline';
 import { useDispatch } from 'react-redux';
-import { I_exercise, I_setExercise } from '@redux/exercises/types';
+import { I_exercise, I_setExercise } from 'src/redux/exercises/types';
 import { Form, Input, Button, Select, Tag, Modal } from 'antd';
-import { changeExercise, deleteExercise, setExercise } from '@redux/exercises/actionCreators';
+import { changeExercise, deleteExercise, setExercise } from 'src/redux/exercises/actionCreators';
 import { DeleteOutlined } from '@ant-design/icons';
-import { I_tag, tags } from '@components/common/Tags';
-import { Nullable } from '@redux/types';
+import { I_tag, tags } from 'src/components/common/Tags';
+import { Nullable } from 'src/redux/types';
 import useSelector from 'src/hooks/useSelector';
 
 interface I_EditExercisesProps {

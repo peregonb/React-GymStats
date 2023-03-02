@@ -1,4 +1,4 @@
-import { I_appReducer } from '@redux/types';
+import { I_appReducer } from 'src/redux/types';
 import { appDataActionType, I_setDarkTheme } from './types';
 
 const SET_DARK_THEME = 'SET_DARK_THEME';

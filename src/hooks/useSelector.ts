@@ -1,4 +1,4 @@
-import { App } from '@redux/store';
+import { App } from 'src/redux/store';
 import { useSelector as useSelectorFromRedux } from 'react-redux';
 
 const useSelector = <T>(selector: (state: App) => T): T => useSelectorFromRedux(selector);

@@ -1,4 +1,4 @@
-import { Headline } from '@components/common/Headline';
+import { Headline } from 'src/components/common/Headline';
 import React, { FC } from 'react';
 
 export const HashTrainings: FC = () => {

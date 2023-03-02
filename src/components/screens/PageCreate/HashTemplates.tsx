@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Headline } from '@components/common/Headline';
-import { TransferCustom } from '@components/screens/PageCreate/Transfer';
+import { Headline } from 'src/components/common/Headline';
+import { TransferCustom } from 'src/components/screens/PageCreate/Transfer';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
-import { I_state } from '@redux/types';
-import { TreeTrainings } from '@components/screens/PageCreate/TreeTrainings';
-import { I_exercise } from '@redux/exercises/types';
+import { I_state } from 'src/redux/types';
+import { TreeTrainings } from 'src/components/screens/PageCreate/TreeTrainings';
+import { I_exercise } from 'src/redux/exercises/types';
 
 const HashTemplatesContainer = ({ exercisesList }: { exercisesList: I_exercise[] }) => {
     const [ expandTransfer, setExpandTransfer ] = useState(false);

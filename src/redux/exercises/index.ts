@@ -1,4 +1,4 @@
-import { getUniqID } from '@components/common/helpers';
+import { getUniqID } from 'src/components/common/helpers';
 import { I_exercisesReducer } from '../types';
 import {
     EExercisesDataReducerActionNames,

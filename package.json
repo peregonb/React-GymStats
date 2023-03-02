@@ -4,14 +4,11 @@
   "private": true,
   "main": "src/index.tsx",
   "dependencies": {
-    "@craco/craco": "^6.1.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "antd": "^4.4.3",
-    "craco-less": "^1.17.1",
+    "antd": "^5.2.3",
     "eslint": "^7.11.0",
-    "lodash": "^4.17.21",
     "mime": "^1.6.0",
     "module-alias": "^2.2.2",
     "react": "^17.0.1",
@@ -25,10 +22,10 @@
     "sass": "^1.53.0"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "craco eject"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -55,6 +52,6 @@
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
     "eslint-plugin-react": "^7.30.1",
-    "typescript": "^4.2.3"
+    "typescript": "^4.9.5"
   }
 }

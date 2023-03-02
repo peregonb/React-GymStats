@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { Button, Empty, Input, Modal, Tooltip, Transfer } from 'antd';
 import { connect } from 'react-redux';
-import { addTemplate } from '@redux/templates';
-import { I_exercise } from '@redux/exercises/types';
+import { addTemplate } from 'src/redux/templates';
+import { I_exercise } from 'src/redux/exercises/types';
 
 type propTypes = {
     data: I_exercise[],
@@ -89,7 +89,7 @@ const TransferCustomContainer: React.FC<propTypes> = ({ data, setExpandTransfer,
 
             <Tooltip
                 color={ 'rgb(86, 3, 25)' }
-                visible={ tooltipVisibility }
+                open={ tooltipVisibility }
                 placement={ 'right' }
                 className={ 'error-tooltip' }
                 title={ 'Поле названия и поле контента не может быть пустым.' }>

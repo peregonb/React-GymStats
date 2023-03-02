@@ -1,10 +1,10 @@
-import { I_state } from '@redux/types';
+import { I_state } from 'src/redux/types';
 import { connect } from 'react-redux';
 import React from 'react';
-import { deleteTemplate, template } from '@redux/templates';
+import { deleteTemplate, template } from 'src/redux/templates';
 import { List, Modal } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
-import { I_exercise } from '@redux/exercises/types';
+import { I_exercise } from 'src/redux/exercises/types';
 
 
 const { confirm } = Modal;

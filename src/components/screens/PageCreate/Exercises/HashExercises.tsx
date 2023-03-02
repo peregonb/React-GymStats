@@ -1,12 +1,12 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Table, Tag, Tooltip, Empty } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { I_exercise} from '@redux/exercises/types';
-import { tags } from '@components/common/Tags';
-import { Headline } from '@components/common/Headline';
+import { I_exercise} from 'src/redux/exercises/types';
+import { tags } from 'src/components/common/Tags';
+import { Headline } from 'src/components/common/Headline';
 import useSelector from 'src/hooks/useSelector';
-import EditExercise from '@components/screens/PageCreate/Exercises/EditExercise';
-import { Nullable } from '@redux/types';
+import EditExercise from 'src/components/screens/PageCreate/Exercises/EditExercise';
+import { Nullable } from 'src/redux/types';
 
 const columns = [
     {

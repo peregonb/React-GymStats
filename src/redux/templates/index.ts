@@ -1,6 +1,6 @@
-import { getUniqID } from '@components/common/helpers';
-import { I_exercise } from '@redux/exercises/types';
-import { I_templatesReducer } from '@redux/types';
+import { getUniqID } from 'src/components/common/helpers';
+import { I_exercise } from 'src/redux/exercises/types';
+import { I_templatesReducer } from 'src/redux/types';
 
 const ADD_TEMPLATE = 'ADD_TEMPLATE';
 const DELETE_TEMPLATE = 'DELETE_TEMPLATE';

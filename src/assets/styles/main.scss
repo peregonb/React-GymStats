@@ -1,12 +1,25 @@
+$table: '.ant-table';
+$footerHeight: 50px;
+
 @mixin antd-table {
-  .ant-table {
+  #{$table} {
     font-size: 12px;
 
     &-wrapper {
       border: 1px solid rgba(#fff, .1);
 
-      .ant-table-tbody tr:last-child td {
+      #{$table}-tbody tr:last-child td {
         border-bottom: none;
+      }
+
+      #{$table}-ping-right:not(#{$table}-has-fix-right) #{$table}-container:after {
+        box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, .45) !important;
+        z-index: 3;
+      }
+
+      #{$table}-ping-left:not(#{$table}-has-fix-left) #{$table}-container:before {
+        box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, .45) !important;
+        z-index: 3;
       }
     }
 
@@ -20,7 +33,7 @@
     }
 
     &-thead {
-      .ant-table-cell {
+      #{$table}-cell {
         font-weight: 600;
       }
     }
@@ -60,6 +73,7 @@
   font-family: $font;
   user-select: none !important;
   min-width: 320px;
+  overflow-x: auto;
 }
 
 a {
@@ -94,6 +108,7 @@ a {
   flex-grow: 1;
   width: 100%;
   overflow-y: auto;
+  height: calc(100vh - #{$footerHeight});
 
   &-list {
     padding: 15px;
@@ -111,10 +126,10 @@ a {
       @include antd-table;
 
       &-body {
-        .ant-table-wrapper {
+        #{$table}-wrapper {
           border: 1px solid rgba(#fff, .1);
 
-          .ant-table-tbody tr:last-child td {
+          #{$table}-tbody tr:last-child td {
             border-bottom: none;
           }
         }
@@ -211,7 +226,7 @@ a {
   background-color: #141414;
   width: 100%;
   min-width: 320px;
-  height: 50px;
+  height: $footerHeight;
   padding: 0 15px;
   box-shadow: 0 0 15px 5px #141414;
 
