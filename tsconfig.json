@@ -21,7 +21,6 @@
     "jsx": "react-jsx",
     "baseUrl": "."
   },
-  "extends": "./tsconfig.paths.json",
   "include": [
     "src"
   ],
